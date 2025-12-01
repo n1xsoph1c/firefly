@@ -1,0 +1,142 @@
+{
+  "name": "Cloud Storage - 4K Video Streaming & File Manager",
+  "short_name": "CloudStorage",
+  "description": "Professional cloud storage with 4K video streaming, file management, and sharing capabilities. Works offline with sync.",
+  "start_url": "/",
+  "display": "fullscreen",
+  "background_color": "#ffffff",
+  "theme_color": "#3b82f6",
+  "orientation": "any",
+  "categories": ["productivity", "utilities", "photo", "video", "business"],
+  "scope": "/",
+  "lang": "en",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "apple touch icon"
+    },
+    {
+      "src": "/logo-no-circle.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "monochrome"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/screenshot-desktop.png", 
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Upload Files",
+      "short_name": "Upload",
+      "description": "Quickly upload files to cloud storage",
+      "url": "/dashboard?action=upload",
+      "icons": [
+        {
+          "src": "/logo-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "View Files",
+      "short_name": "Files",
+      "description": "Browse your stored files",
+      "url": "/dashboard",
+      "icons": [
+        {
+          "src": "/logo-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Shared Files",
+      "short_name": "Shares",
+      "description": "Manage shared files and folders",
+      "url": "/dashboard?tab=shares",
+      "icons": [
+        {
+          "src": "/logo-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "file_handlers": [
+    {
+      "action": "/dashboard?upload=true",
+      "accept": {
+        "video/*": [".mp4", ".avi", ".mov", ".wmv", ".flv", ".webm", ".mkv", ".m4v"],
+        "image/*": [".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg", ".bmp"],
+        "application/pdf": [".pdf"]
+      }
+    }
+  ],
+  "share_target": {
+    "action": "/api/files/upload/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [
+        {
+          "name": "file",
+          "accept": ["video/*", "image/*", "application/pdf"]
+        }
+      ]
+    }
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "web+cloudstorage",
+      "url": "/share/%s"
+    }
+  ],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "display_override": ["fullscreen", "standalone", "minimal-ui", "browser"],
+  "launch_handler": {
+    "client_mode": "focus-existing"
+  },
+  "related_applications": []
+}

@@ -1,0 +1,637 @@
+@import "tailwindcss";
+
+/* ===================================
+   DESIGN SYSTEM - Firefly
+   Human-Centered, Visually Rich
+   =================================== */
+
+:root {
+  /* Base Colors - Dark Theme (Default) */
+  --background: #09090b;
+  --background-elevated: #18181b;
+  --foreground: #fafafa;
+  --card-background: #18181b;
+  --border-color: #27272a;
+  --muted-background: #0f0f11;
+
+  /* Accent Colors - Violet/Indigo Gradient */
+  --accent-primary: #8b5cf6;
+  --accent-secondary: #6366f1;
+  --accent-hover: #7c3aed;
+  --accent-glow: rgba(139, 92, 246, 0.15);
+
+  /* Semantic Colors */
+  --success-color: #10b981;
+  --success-glow: rgba(16, 185, 129, 0.15);
+  --warning-color: #f59e0b;
+  --warning-glow: rgba(245, 158, 11, 0.15);
+  --danger-color: #ef4444;
+  --danger-glow: rgba(239, 68, 68, 0.15);
+  --info-color: #3b82f6;
+  --info-glow: rgba(59, 130, 246, 0.15);
+
+  /* Text Hierarchy */
+  --text-primary: #fafafa;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --text-disabled: #52525b;
+
+  /* Enhanced Shadows with Glow */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+
+  /* Accent Shadows (with color glow) */
+  --shadow-accent: 0 10px 25px -5px var(--accent-glow), 0 4px 10px -2px var(--accent-glow);
+  --shadow-success: 0 10px 25px -5px var(--success-glow), 0 4px 10px -2px var(--success-glow);
+  --shadow-danger: 0 10px 25px -5px var(--danger-glow), 0 4px 10px -2px var(--danger-glow);
+
+  /* Glassmorphism */
+  --glass-bg: rgba(24, 24, 27, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-blur: 12px;
+
+  /* Animation Speeds */
+  --speed-fast: 150ms;
+  --speed-normal: 200ms;
+  --speed-slow: 300ms;
+
+  /* Border Radius Scale */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+
+  /* iOS Safe Area Insets */
+  --safe-area-inset-top: env(safe-area-inset-top);
+  --safe-area-inset-right: env(safe-area-inset-right);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom);
+  --safe-area-inset-left: env(safe-area-inset-left);
+}
+
+/* Light mode override - only if explicitly preferred */
+@media (prefers-color-scheme: light) {
+  :root {
+    --background: #fafafa;
+    --background-elevated: #ffffff;
+    --foreground: #18181b;
+    --card-background: #ffffff;
+    --border-color: #e4e4e7;
+    --muted-background: #f4f4f5;
+    --text-primary: #18181b;
+    --text-secondary: #71717a;
+    --text-muted: #a1a1aa;
+    --text-disabled: #d4d4d8;
+
+    /* Lighter shadows for light mode */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+
+    /* Glassmorphism for light mode */
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* ===================================
+   TYPOGRAPHY
+   =================================== */
+
+html {
+  font-feature-settings: 'cv03', 'cv04', 'cv11', 'ss01', 'ss02';
+  font-variant-ligatures: common-ligatures;
+}
+
+body {
+  background: var(--background);
+  color: var(--text-primary);
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+}
+
+h1 {
+  font-size: 2.25rem;
+}
+
+/* 36px */
+h2 {
+  font-size: 1.875rem;
+}
+
+/* 30px */
+h3 {
+  font-size: 1.5rem;
+}
+
+/* 24px */
+h4 {
+  font-size: 1.25rem;
+}
+
+/* 20px */
+h5 {
+  font-size: 1.125rem;
+}
+
+/* 18px */
+h6 {
+  font-size: 1rem;
+}
+
+/* 16px */
+
+/* ===================================
+   SCROLLBAR STYLING
+   =================================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--muted-background);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+  transition: background var(--speed-normal);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) var(--muted-background);
+}
+
+/* ===================================
+   UTILITY CLASSES
+   =================================== */
+
+/* Glassmorphism effect */
+.glass-effect {
+  backdrop-filter: blur(var(--glass-blur));
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+}
+
+/* Text gradient */
+.text-gradient {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glow effects */
+.glow-accent {
+  box-shadow: var(--shadow-accent);
+}
+
+.glow-success {
+  box-shadow: var(--shadow-success);
+}
+
+.glow-danger {
+  box-shadow: var(--shadow-danger);
+}
+
+/* Smooth transitions */
+.transition-smooth {
+  transition: all var(--speed-normal) ease-in-out;
+}
+
+/* Hover lift effect */
+.hover-lift {
+  transition: transform var(--speed-normal) ease-in-out, box-shadow var(--speed-normal) ease-in-out;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Active press effect */
+.active-press:active {
+  transform: scale(0.98);
+}
+
+/* ===================================
+   ANIMATIONS
+   =================================== */
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in var(--speed-normal) ease-out;
+}
+
+.animate-slide-up {
+  animation: slide-up var(--speed-normal) ease-out;
+}
+
+.animate-slide-down {
+  animation: slide-down var(--speed-normal) ease-out;
+}
+
+.animate-scale-in {
+  animation: scale-in var(--speed-normal) ease-out;
+}
+
+/* Loading skeleton */
+.skeleton {
+  background: linear-gradient(90deg,
+      var(--muted-background) 0%,
+      var(--border-color) 50%,
+      var(--muted-background) 100%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+  border-radius: var(--radius-md);
+}
+
+/* ===================================
+   IOS SAFE AREA UTILITIES
+   =================================== */
+
+.safe-area-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-area-right {
+  padding-right: env(safe-area-inset-right);
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.safe-area-left {
+  padding-left: env(safe-area-inset-left);
+}
+
+.safe-area-x {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+.safe-area-y {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.safe-area-all {
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+/* iOS Specific Header Spacing for Dynamic Island */
+@supports (padding: max(0px)) {
+  .ios-header-safe {
+    padding-top: max(env(safe-area-inset-top), 12px);
+  }
+
+  .ios-header-content {
+    padding-left: max(env(safe-area-inset-left), 12px);
+    padding-right: max(env(safe-area-inset-right), 12px);
+  }
+
+  .ios-bottom-safe {
+    padding-bottom: max(env(safe-area-inset-bottom), 16px);
+  }
+}
+
+@supports not (padding: max(0px)) {
+  .ios-header-safe {
+    padding-top: 12px;
+  }
+
+  .ios-header-content {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .ios-bottom-safe {
+    padding-bottom: 16px;
+  }
+}
+
+/* iOS PWA specific styles */
+@media (display-mode: standalone) {
+  .ios-header-safe {
+    padding-top: max(env(safe-area-inset-top), 16px);
+  }
+}
+
+.ios-device {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ios-pwa {
+  height: 100vh;
+  height: -webkit-fill-available;
+  overflow: hidden;
+}
+
+.ios-pwa body {
+  height: 100vh;
+  height: -webkit-fill-available;
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
+@supports (-webkit-touch-callout: none) {
+  .ios-pwa {
+    min-height: -webkit-fill-available;
+  }
+}
+
+/* ===================================
+   MOBILE OPTIMIZATIONS
+   =================================== */
+
+@media (max-width: 1024px) {
+  .mobile-content-spacing {
+    padding-bottom: calc(80px + env(safe-area-inset-bottom));
+  }
+}
+
+@media (min-width: 1025px) {
+  .mobile-content-spacing {
+    padding-bottom: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .tap-feedback {
+    -webkit-tap-highlight-color: rgba(139, 92, 246, 0.1);
+    transition: transform var(--speed-fast) ease-in-out, background-color var(--speed-fast) ease-in-out;
+  }
+
+  .tap-feedback:active {
+    transform: scale(0.98);
+    background-color: var(--muted-background);
+  }
+
+  .long-press-active {
+    animation: pulse 0.5s ease-in-out;
+    background-color: rgba(139, 92, 246, 0.2);
+  }
+
+  @keyframes pulse {
+
+    0%,
+    100% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(1.02);
+    }
+  }
+}
+
+/* ===================================
+   VIDEO/MEDIA MODAL STYLES
+   =================================== */
+
+.video-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 60;
+  backdrop-filter: blur(4px);
+}
+
+.video-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #000;
+}
+
+.video-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+  padding: 1rem;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.video-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  padding-bottom: 80px;
+}
+
+.video-player {
+  width: 100%;
+  height: 100%;
+  max-width: 100vw;
+  max-height: calc(100vh - 160px);
+  object-fit: contain;
+}
+
+.video-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.3) 80%, rgba(0, 0, 0, 0) 100%);
+  padding: 2rem 1rem 1rem 1rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  z-index: 20;
+}
+
+.video-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  backdrop-filter: blur(8px);
+}
+
+.video-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.video-btn-primary {
+  background: #8b5cf6;
+  border: 1px solid #7c3aed;
+}
+
+.video-btn-primary:hover {
+  background: #7c3aed;
+}
+
+@media (max-width: 768px) {
+  .video-header {
+    padding: env(safe-area-inset-top) 1rem 1rem 1rem;
+  }
+
+  .video-content {
+    padding-bottom: 100px;
+  }
+
+  .video-player {
+    max-height: calc(100vh - 180px);
+  }
+
+  .video-controls {
+    padding: 2rem 1rem calc(1rem + env(safe-area-inset-bottom)) 1rem;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .video-btn {
+    padding: 1rem;
+    text-align: center;
+    width: 100%;
+  }
+}
+
+/* ===================================
+   SHARED PAGE STYLES
+   =================================== */
+
+.share-container {
+  min-height: 100vh;
+  background: var(--background);
+}
+
+.share-header {
+  background: var(--card-background);
+  border-bottom: 1px solid var(--border-color);
+  padding: 1.5rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(12px);
+  background: var(--glass-bg);
+}
+
+.share-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.file-card {
+  background: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  transition: all var(--speed-normal) ease-in-out;
+}
+
+.file-card:hover {
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent-primary);
+  transform: translateY(-2px);
+}

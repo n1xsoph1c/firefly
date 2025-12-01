@@ -1,0 +1,102 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String?
+  username  String?  @unique // For clean URLs like yourdomain.com/shared/username
+  isAdmin   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  files     File[]
+  folders   Folder[]
+  shares    Share[]
+
+  @@map("users")
+}
+
+model Folder {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String?  // URL-friendly version of name for clean URLs
+  description String?
+  parentId    String?
+  userId      String
+  fsPath      String?  // File system path for synced folders (relative to UPLOAD_PATH)
+  isPublic    Boolean  @default(false) // Public folders accessible via clean URLs
+  isDeleted   Boolean  @default(false)
+  deletedAt   DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  parent      Folder?  @relation("FolderHierarchy", fields: [parentId], references: [id])
+  children    Folder[] @relation("FolderHierarchy")
+  files       File[]
+  shares      Share[]
+
+  @@unique([userId, slug]) // Ensure unique slugs per user
+  @@index([fsPath]) // Index for efficient lookups during sync
+  @@map("folders")
+}
+
+model File {
+  id           String    @id @default(cuid())
+  name         String
+  originalName String
+  mimeType     String
+  size         BigInt
+  filePath     String    @unique
+  folderId     String?
+  userId       String
+  description  String?
+  syncSource   String    @default("upload") // "upload" for web uploads, "sync" for file system synced
+  isPublic     Boolean   @default(false)
+  isDeleted    Boolean   @default(false)
+  deletedAt    DateTime?
+  downloadCount Int      @default(0)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  // Relations
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  folder       Folder?   @relation(fields: [folderId], references: [id], onDelete: SetNull)
+  shares       Share[]
+
+  @@map("files")
+}
+
+model Share {
+  id          String    @id @default(cuid())
+  token       String    @unique
+  fileId      String?
+  folderId    String?
+  userId      String
+  expiresAt   DateTime?
+  accessCount Int       @default(0)
+  maxAccess   Int?
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Relations
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  file        File?     @relation(fields: [fileId], references: [id], onDelete: Cascade)
+  folder      Folder?   @relation(fields: [folderId], references: [id], onDelete: Cascade)
+
+  @@map("shares")
+}
